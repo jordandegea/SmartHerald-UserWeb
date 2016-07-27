@@ -6,19 +6,45 @@ import $ from "jQuery";
 import classNames from "classnames";
 import Parse from "parse";
 import ParseReact from "parse-react";
+import cookie from 'react-cookie';
 
 
 
 var HomePage = React.createClass({
    mixins: [Router.Navigation],
   
-  
   componentWillMount: function() {
     this.setState({Height: $(window).height()});
   },
 
   componentDidMount: function() {
-
+    var self = this;
+    if ( this.state.company ){
+      var canonicalName = this.state.company;
+      var query = new Parse.Query('Service');
+      query.equalTo("canonicalName", canonicalName);
+      query.first({
+        success: function(object) {
+          Parse.Cloud.run(
+            'subscribe', 
+            { 
+              serviceId: object.id
+            }).then(
+            function(result) {
+              alert("Subscription success")
+              self.forceUpdate();
+            },
+            function(error){
+              alert("Subscription failed: server said '"+error.message+"'");
+            }
+          );
+          cookie.remove('companyAutoSubscribe', { path: '/' });
+        },
+        error: function(error) {
+          alert("Error: " + error.code + " " + error.message);
+        }
+      });
+    }
   },
 
   componentWillUnmount: function(){
@@ -38,7 +64,8 @@ var HomePage = React.createClass({
       chartsElementsCollapsed: true,
       multiLevelDropdownCollapsed: true,
       thirdLevelDropdownCollapsed: true,
-      samplePagesCollapsed: true
+      samplePagesCollapsed: true,
+      company: cookie.load('companyAutoSubscribe')
     };
 
   },
@@ -71,10 +98,12 @@ var HomePage = React.createClass({
             <ul className="nav navbar-top-links navbar-right">
               <Nav style={ {margin: 0} }>
                 <NavItem>
-                  <a target="_blank" href=""><i className="fa fa-apple fa-fw"></i> A FAIRE</a>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/shared-news/id1099585519?mt=8");}}>
+                  <i className="fa fa-apple fa-fw"></i>AppStore</span>
                 </NavItem>
                 <NavItem>
-                  <a target="_blank" href=""><i className="fa fa-android fa-fw"></i></a>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/shared-news/id1099585519?mt=8");}}>
+                  <i className="fa fa-android fa-fw"></i>GooglePlay</span>
                 </NavItem>
                 <NavItem>{Parse.User.current().attributes.username}</NavItem>
               </Nav>

@@ -4,6 +4,8 @@ import React from 'react';
 import Router from 'react-router';
 import {Panel, Input, Button} from 'react-bootstrap';
 import Parse from "parse"
+import cookie from 'react-cookie';
+
 
 var LoginPage = React.createClass({
 
@@ -13,9 +15,19 @@ var LoginPage = React.createClass({
       password: '',
       email: '',
       isSubmitted: false,
-      register: false
+      register: false,
+      company: cookie.load('companyAutoSubscribe')
     };
   },
+
+  componentDidMount(){
+    if (this.props.query.hasOwnProperty("company")){
+      var company = this.props.query.company ;
+      cookie.save('companyAutoSubscribe', company, { path: '/' });
+      this.setState({ company: company });
+    }
+  },
+
 
   mixins: [Router.Navigation],
 
@@ -33,7 +45,13 @@ var LoginPage = React.createClass({
           <form role="form" onSubmit={this.handleLogin}>
             <fieldset>
               <div className="form-group">
-                <Input onChange={this.setLoginID} className="form-control" placeholder="Username" ref="loginID" type="text" autofocus="" name="name" />
+                <Input 
+                    onChange={this.setLoginID} className="form-control" 
+                    autoComplete={"off"} autoCorrect={"off"} 
+                    autoCapitalize={"off"} spellCheck={false} 
+                    placeholder="Username" ref="loginID" 
+                    type="text" autofocus="" 
+                    name="username" step="true"  />
               </div>
 
               <div className="form-group">
@@ -91,6 +109,10 @@ var LoginPage = React.createClass({
     });
   },
 
+  formFillSucceed: function(e){
+    this.transitionTo('dashboard');
+  },
+
   handleLogin: function(e){
     
     e.stopPropagation();
@@ -107,11 +129,9 @@ var LoginPage = React.createClass({
 
         user.signUp(null, {
           success: function(user) {
-            console.log(user);
-            self.transitionTo('dashboard');
+            self.formFillSucceed();
           },
           error: function(user, error) {
-            // Show the error message somewhere and let the user try again.
             alert("Error: " + error.code + " " + error.message);
           }
         });
@@ -121,7 +141,7 @@ var LoginPage = React.createClass({
     }else{
       Parse.User.logIn(this.state.loginID, this.state.password, {
         success: function(user) {
-          self.transitionTo('dashboard');
+          self.formFillSucceed();
         },
         error: function(user, error) {
             console.log(error);
