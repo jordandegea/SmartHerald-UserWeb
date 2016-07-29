@@ -77,12 +77,12 @@ let fetchData = function(routes, params) {
 
 
 
-Parse.initialize("com.sinenco.sharednews", "com.sinenco.sharednews");
+Parse.initialize("com.sinenco.smartherald", "com.sinenco.smartherald");
 //Parse.serverURL = "http://localhost/parse";
-Parse.serverURL = "http://dev.shared-news.com/parse";
+Parse.serverURL = "http://smartherald.com/parse";
 Parse.User.current();
 
-//Parse.initialize("com.sinenco.sharednews", "Q4RYKBphoPHRSM6ZKRztYFjpvAMte563cyx88xtb");
+//Parse.initialize("com.sinenco.smartherald", "Q4RYKBphoPHRSM6ZKRztYFjpvAMte563cyx88xtb");
 //Parse.serverURL = "http://parseserver-8vd82-env.us-west-2.elasticbeanstalk.com/parse"
 //
 // Start the router

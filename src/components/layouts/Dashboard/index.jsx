@@ -87,8 +87,8 @@ var HomePage = React.createClass({
           <Navbar fluid={true}  style={ {margin: 0} }>
             <Navbar.Header>
               <Navbar.Brand>
-                <span><img src={require('../../../common/img/logo.png')} alt="SharedNews" title="SharedNews" />
-                <span>&nbsp;Shared News</span>
+                <span><img src={require('../../../common/img/logo.png')} alt="SmartHerald" title="SmartHerald" />
+                <span>&nbsp;Smart Herald</span>
                 <span className="hidden-xs"> - <Link to="dashboard.services">User Dashboard</Link></span>
                 </span>
               </Navbar.Brand>
@@ -98,11 +98,11 @@ var HomePage = React.createClass({
             <ul className="nav navbar-top-links navbar-right">
               <Nav style={ {margin: 0} }>
                 <NavItem>
-                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/shared-news/id1099585519?mt=8");}}>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/smart-herald/id1099585519?mt=8");}}>
                   <i className="fa fa-apple fa-fw"></i>AppStore</span>
                 </NavItem>
                 <NavItem>
-                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/shared-news/id1099585519?mt=8");}}>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/smart-herald/id1099585519?mt=8");}}>
                   <i className="fa fa-android fa-fw"></i>GooglePlay</span>
                 </NavItem>
                 <NavItem>{Parse.User.current().attributes.username}</NavItem>
