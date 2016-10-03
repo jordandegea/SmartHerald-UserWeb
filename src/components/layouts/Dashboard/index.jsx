@@ -98,11 +98,11 @@ var HomePage = React.createClass({
             <ul className="nav navbar-top-links navbar-right">
               <Nav style={ {margin: 0} }>
                 <NavItem>
-                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/smart-herald/id1099585519?mt=8");}}>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/smart-herald/id1139174211?mt=8");}}>
                   <i className="fa fa-apple fa-fw"></i>AppStore</span>
                 </NavItem>
                 <NavItem>
-                  <span onClick={(event) => {event.preventDefault();window.open("https://itunes.apple.com/fr/app/smart-herald/id1099585519?mt=8");}}>
+                  <span onClick={(event) => {event.preventDefault();window.open("https://play.google.com/store/apps/details?id=com.sinenco.smartherald");}}>
                   <i className="fa fa-android fa-fw"></i>GooglePlay</span>
                 </NavItem>
                 <NavItem>{Parse.User.current().attributes.username}</NavItem>
